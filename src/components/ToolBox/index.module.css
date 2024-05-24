@@ -1,0 +1,113 @@
+.ToolBoxContainer {
+  @apply p-5 absolute top-1/4 left-5 w-64 rounded-md;
+  border: 1px solid theme("colors.border1");
+  box-shadow: theme("colors.shadow1");
+  background-color: theme("colors.background1");
+
+  .toolItem {
+    @apply mb-5;
+
+    .toolText {
+      font-size: 11px;
+      color: theme("colors.text1");
+    }
+
+    .itemContainer {
+      @apply flex justify-between mt-2;
+
+      .range {
+        -webkit-appearance: none;
+        width: 13em;
+        background: transparent;
+        position: relative;
+
+        &:focus {
+          outline: 0;
+        }
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          width: 1.2em;
+          height: 1.2em;
+          margin: 0.5em 0;
+          background: hsl(27, 98%, 50%);
+          border-radius: 100%;
+          box-shadow: inset 0.8em 0.8em 5px -8px rgba(255, 255, 255, 0.4),
+            inset -0.4em -0.4em 10px -3px rgba(0, 0, 0, 0.2),
+            0.7em 0.5em 7px -0.5em rgba(0, 0, 0, 0.4);
+          cursor: pointer;
+          z-index: 13;
+          position: relative;
+        }
+        /*All the same stuff for firefox */
+        &.-moz-range-thumb {
+          width: 1.5em;
+          height: 1.5em;
+          margin: 0.5em 0;
+          background: #fd8421;
+          border-radius: 100%;
+          box-shadow: inset 0.8em 0.8em 5px -8px rgba(255, 255, 255, 0.4),
+            inset -0.4em -0.4em 10px -3px rgba(0, 0, 0, 0.2),
+            0.7em 0.5em 7px -0.5em rgba(0, 0, 0, 0.4);
+          cursor: pointer;
+          border: 0;
+          z-index: 13;
+          position: relative;
+        }
+
+        &::-webkit-slider-runnable-track {
+          background: transparent;
+          width: 100%;
+          height: 2em;
+          padding: 0 0.5em;
+          border-radius: 2em;
+
+          /* These shadow are what create the skeumorphic indent on the track. The first one is dark to show places in the indent that light don't reach and the second one shows places where light meets thereby creating the illusion of depth */
+          box-shadow: inset 0.6em 1em 10px rgba(0, 0, 0, 0.15),
+            inset -0.6em -1em 10px rgba(255, 255, 255, 0.415);
+        }
+        /* For firefox */
+        &.-moz-range-track {
+          background: transparent;
+          width: 100%;
+          height: 2em;
+          padding: 0 1em;
+          border-radius: 2em;
+          box-shadow: inset 0.6em 1em 10px rgba(0, 0, 0, 0.15),
+            inset -0.6em -1em 10px rgba(255, 255, 255, 0.415);
+        }
+
+        /* For the numbering in the range's design - doesn't show on firefox but shows on chrome and opera */
+        &::before {
+          content: "0 1 2 3 4 5 6 7 8 9";
+          position: absolute;
+          text-align: center;
+          color: #4e4d4d92;
+          font-size: 0.6em;
+
+          /*Serves to spread the letters to fit the whole width of the track */
+          letter-spacing: 0.52em;
+
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          padding: 1em 0.5em;
+          z-index: 0;
+          /* Makes the letters look embossed adding to the skeumorphic theme of the design */
+          text-shadow: 0.5px 0.5px 0.9px rgba(0, 0, 0, 0.4);
+        }
+      }
+
+      .colorBox {
+        @apply h-5 w-5 mr-1 rounded-sm cursor-pointer;
+
+        &:hover,
+        &.active {
+          /* border: 1.5px solid theme("colors.border2"); */
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+            rgba(0, 0, 0, 0.23) 0px 3px 6px;
+        }
+      }
+    }
+  }
+}
