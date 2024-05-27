@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./index.module.css";
+import styles from "@/components/ToolBox/index.module.css";
 import { Colors, MenuItems } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { changeBrushSize, changeColor } from "@/slice/toolBoxSlice";
