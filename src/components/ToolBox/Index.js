@@ -20,13 +20,6 @@ export const ToolBox = () => {
     dispatch(changeColor({ item: activeMenuItem, color: newColor }));
   };
 
-  const UpdateColorIntensity = (intensity) => {
-    const updatedColor = `rgba(${color.r}, ${color.g}, ${color.b}, ${
-      intensity / 255
-    })`; // Update color intensity based on the range input value
-    dispatch(changeColor({ item: activeMenuItem, color: updatedColor }));
-  };
-
   return (
     <div className={styles.ToolBoxContainer}>
       {showStrikeTools && (
@@ -62,20 +55,7 @@ export const ToolBox = () => {
           </div>
         </div>
       )}
-      <div className={styles.toolItem}>
-        <h4 className={styles.toolText}>Color Intensity</h4>
-        <div className={styles.itemContainer}>
-          <input
-            className={styles.range}
-            type="range"
-            min={0}
-            max={255}
-            step={1}
-            // value={colorIntensity}
-            onChange={(e) => UpdateColorIntensity(e.target.value)}
-          />
-        </div>
-      </div>
+
       <div className={styles.toolItem}>
         <h4 className={styles.toolText}>Add Text</h4>
         <div className={styles.itemContainer}>

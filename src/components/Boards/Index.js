@@ -29,6 +29,11 @@ export const Board = () => {
     ) {
       if (historyPointer.current > 0 && actionMenuItem === MenuItems.UNDO)
         historyPointer.current -= 1;
+      if (
+        historyPointer.current < drawHistory.current.length - 1 &&
+        actionMenuItem === MenuItems.REDO
+      )
+        historyPointer.current += 1;
       const imageData = drawHistory.current[historyPointer.current];
       context.putImageData(imageData, 0, 0);
     }
