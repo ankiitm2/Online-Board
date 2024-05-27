@@ -17,6 +17,10 @@ export const Menu = () => {
     dispatch(menuItemClick(item));
   };
 
+  const handleActionClick = (item) => {
+    dispatch(actionItemClick(item));
+  };
+
   return (
     <div className={styles.menuContainer}>
       <div
@@ -35,13 +39,22 @@ export const Menu = () => {
       >
         <FaEraser className={styles.icon} />
       </div>
-      <div className={styles.iconWrapper}>
+      <div
+        className={styles.iconWrapper}
+        onClick={() => handleActionClick(MenuItems.UNDO)}
+      >
         <IoArrowUndo className={styles.icon} />
       </div>
-      <div className={styles.iconWrapper}>
+      <div
+        className={styles.iconWrapper}
+        onClick={() => handleActionClick(MenuItems.REDO)}
+      >
         <IoArrowRedoSharp className={styles.icon} />
       </div>
-      <div className={styles.iconWrapper}>
+      <div
+        className={styles.iconWrapper}
+        onClick={() => handleActionClick(MenuItems.DOWNLOAD)}
+      >
         <RiDownload2Line className={styles.icon} />
       </div>
     </div>

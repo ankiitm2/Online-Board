@@ -1,10 +1,13 @@
-import React, { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { MenuItems } from "@/constants";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { menuItemClick, actionItemClick } from "@/slice/menuSlice";
 
 export const Board = () => {
+  const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const mouseClick = useRef(false);
-  const activeMenuItem = useSelector((state) => state.menu.activeMenuItem);
+  const { activeMenuItem, actionMenuItem } = useSelector((state) => state.menu);
   const { color, size } = useSelector((state) => state.toolBox[activeMenuItem]);
 
   useEffect(() => {
@@ -12,8 +15,20 @@ export const Board = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    if (actionMenuItem === MenuItems.DOWNLOAD) {
+      const URL = canvas.toDataURL();
+      const anchor = document.createElement("a");
+      anchor.href = URL;
+      anchor.download = "canvas.png";
+      anchor.click();
+    }
+    dispatch(actionItemClick(null));
+  }, [actionMenuItem, dispatch]);
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
 
     const lineConfig = () => {
       if (context.strokeStyle !== color || context.lineWidth !== size) {
@@ -25,6 +40,15 @@ export const Board = () => {
     lineConfig();
 
     console.log("lineConfig === ", lineConfig());
+  }, [color, size]);
+
+  useLayoutEffect(() => {
+    if (!canvasRef.current) return;
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
     const MouseDown = (e) => {
       mouseClick.current = true;
@@ -52,7 +76,7 @@ export const Board = () => {
       canvas.removeEventListener("mousemove", MouseMove);
       canvas.removeEventListener("mouseup", MouseUp);
     };
-  }, [color, size]);
+  }, []);
 
   return (
     <>
