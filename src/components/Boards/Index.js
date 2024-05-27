@@ -6,6 +6,8 @@ import { menuItemClick, actionItemClick } from "@/slice/menuSlice";
 export const Board = () => {
   const dispatch = useDispatch();
   const canvasRef = useRef(null);
+  const drawHistory = useRef([]);
+  const historyPointer = useRef(0);
   const mouseClick = useRef(false);
   const { activeMenuItem, actionMenuItem } = useSelector((state) => state.menu);
   const { color, size } = useSelector((state) => state.toolBox[activeMenuItem]);
@@ -21,6 +23,14 @@ export const Board = () => {
       anchor.href = URL;
       anchor.download = "canvas.png";
       anchor.click();
+    } else if (
+      actionMenuItem === MenuItems.UNDO ||
+      actionMenuItem === MenuItems.REDO
+    ) {
+      if (historyPointer.current > 0 && actionMenuItem === MenuItems.UNDO)
+        historyPointer.current -= 1;
+      const imageData = drawHistory.current[historyPointer.current];
+      context.putImageData(imageData, 0, 0);
     }
     dispatch(actionItemClick(null));
   }, [actionMenuItem, dispatch]);
@@ -65,6 +75,9 @@ export const Board = () => {
 
     const MouseUp = (e) => {
       mouseClick.current = false;
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      drawHistory.current.push(imageData);
+      historyPointer.current = drawHistory.current.length - 1;
     };
 
     canvas.addEventListener("mousedown", MouseDown);
