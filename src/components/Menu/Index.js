@@ -1,12 +1,12 @@
 import { FaPencilAlt } from "react-icons/fa";
 import { FaEraser } from "react-icons/fa";
-import styles from "./index.module.css";
 import { IoArrowUndo } from "react-icons/io5";
 import { IoArrowRedoSharp } from "react-icons/io5";
 import { RiDownload2Line } from "react-icons/ri";
 import { MenuItems } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { menuItemClick, actionItemClick } from "@/slice/menuSlice";
+import styles from "./index.module.css";
 
 export const Menu = () => {
   const dispatch = useDispatch();
